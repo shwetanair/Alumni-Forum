@@ -1,0 +1,26 @@
+<div class="">
+        <div class="container-fluid">
+            <div class="navbar-header navbar-fixed-top">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">1</span>
+                    <span class="icon-bar">2</span>
+                    <span class="icon-bar">2</span>
+                    <span class="icon-bar">3</span>
+                </button>
+                <a class="pull-left" href="#"><img src="http://localhost:8000/images/d5.png" class="logosize img-rounded"></a>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        {{#if reg_user}}
+                            <li><a href="/users/profile">Profile</a></li> <li></li>
+                            <li><a href="/users/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+                        {{else}}
+                            <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                Login
+                            </button>
+                        {{/if}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+</div>

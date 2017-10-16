@@ -1,0 +1,118 @@
+<html>
+<head>
+    {{#if user}}
+        <title>{{user.username}}'s Profile</title>
+    {{/if}}
+    {{>head}}
+    {{>header}}
+</head>
+<body onload="openTab(event, 'threads')">
+
+<div class="container">
+    <div>
+        {{#if success_msg}}
+            <div class="alert alert-success">{{success_msg}}</div>
+        {{/if}}
+        {{#if error_msg}}
+            <div class="alert alert-danger">{{error_msg}}</div>
+        {{/if}}
+        {{#if error}}
+            <div class="alert alert-danger">{{error}}</div>
+        {{/if}}
+    </div>
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    {{#if user}}
+                        <img src="/uploads/{{user.filename}}" class="" alt="profile photo">
+                    {{/if}}
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        {{# if user}}
+                            <!--reg_user is the user object-->
+                            {{user.firstname}}&nbsp;{{user.lastname}}
+                        {{/if}}
+                    </div>
+                    <div class="profile-usertitle-job">
+                        {{# if user.company}}
+                            Working at: {{user.company}}
+                        {{/if}}
+                        <br>
+                        {{# if user.university}}
+                            Alumni of: {{user.university}}
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- SIDEBAR BUTTONS -->
+                {{#compare reg_user.username user.username operator="=="}}
+                    <div class="profile-userbuttons">
+                        <button type="button" class="login loginmodal-submit" data-toggle="modal" data-target="#myModal"
+                                         style="width: 100%">
+                        Upload Profile Photo
+                    </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Add Profile Photo</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{>addPhoto}}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/compare}}
+                <!-- END SIDEBAR BUTTONS -->
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="/profile">
+                                <i class="glyphicon glyphicon-home"></i>
+                                Overview </a>
+                        </li>
+                        {{# if reg_user.isAdmin}}
+                            <li>
+                                <a href="/profile/allusers">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    List All Users </a>
+                            </li>
+                            <li>
+                                <a href="/profile/posts">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    List All Threads </a>
+                            </li>
+                        {{/if}}
+                    </ul>
+                </div>
+                <!-- END MENU -->
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="profile-content">
+                {{{body}}}
+            </div>
+        </div>
+    </div>
+    {{>postQuestion}}
+</div>
+</body>
+</html>
+
+

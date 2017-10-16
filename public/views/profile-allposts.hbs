@@ -1,0 +1,28 @@
+<div id="" class="">
+    <div class="thread">
+        <ul>
+            {{# if allposts}}
+                {{# each allposts}}
+                    <li id="{{_id}}">
+                        <a href="/posts/getPost/{{_id}}" target="_blank"><h3>{{title}}</h3></a>
+                        <p>Views={{preview}}</p>
+                        <p>{{description}}</p>
+                        <a class="btn btn-default" onclick="deletePost('{{_id}}')">Delete</a>
+                        <a data-toggle="modal" data-target="#thread-modal" class="btn btn-default"
+                           onclick="editThread('{{_id}}')">
+                            Edit
+                        </a>
+                    </li>
+                {{/each}}
+            {{else}}
+                <li>No threads</li>
+                <li>
+                    <button type="button" data-toggle="modal" data-target="#thread-modal"
+                            class="login loginmodal-submit" style="width: 30%">
+                        Create new Thread
+                    </button>
+                </li>
+            {{/if}}
+        </ul>
+    </div>
+</div>

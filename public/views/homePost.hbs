@@ -1,0 +1,163 @@
+<!-- Page Content -->
+<div class="">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="msg-wrap">
+            <div class="msg odd">
+            <div class="col-md-3 author">
+            <div class="profile-usertitle">
+            <div class="profile-usertitle-name">
+                {{# if reg_user}}
+                    {{#if user.username}}
+                        <a href="/profile/{{user.username}}">{{user.username}}</a>
+                    </div>
+                    </div>
+                        <a href="/profile/{{user.username}}"
+                           style="text-align: center;font-size: 3em">
+                            <img src="/uploads/{{user.filename}}" class="media-object"/>
+                        </a>
+                    {{else}}
+                        <h5 class="media-heading">[deleted user]
+                            <small class="text-muted"></small>
+                        </h5>
+                        <a style="text-align: center;font-size: 3em">
+                            <img src="/uploads/unknown.png" class="media-object"/>
+                        </a>
+                    {{/if}}
+                {{else}}
+                    {{#if user.username}}
+                        <span>{{user.username}}</span>
+                    </div>
+                    </div>
+                        <span style="text-align: center;font-size: 3em">
+                                    <img src="/uploads/{{user.filename}}" class="media-object"/>
+                                </span>
+                    {{else}}
+                        <h5 class="media-heading">[deleted user]
+                            <small class="text-muted"></small>
+                        </h5>
+                        <span style="text-align: center;font-size: 3em">
+                                    <img src="/uploads/unknown.png" class="media-object"/>
+                                </span>
+                    {{/if}}
+                {{/if}}
+            </div>
+            <div class="col-md-9">
+                <p style="font-size: 35px"> {{post.title}}</p>
+                {{#if reg_user}}
+                    {{# if isfav}}
+                        <img src="http://localhost:8000/images/fav.jpg" style="width: 2em;"
+                             onclick="unfavThisPost('{{post._id}}'); " id="fav"/>
+                    {{else}}
+                        <img src="http://localhost:8000/images/unfav.png" style="width: 2em;"
+                             onclick="favThisPost('{{post._id}}'); " id="fav"/>
+                    {{/if}}
+                {{/if}}
+                <small class="text-muted">
+                    <i class="fa fa-clock-o"></i> Created on: {{dateFormat post.dateCreated
+                                                                           "MMMM Do YYYY, h:mm a"}}</small>
+                {{#compare reg_user.username user.username operator="=="}}
+                    <button type="button" class="login loginmodal-submit" data-toggle="modal"
+                            data-target="#upload-image" style="width: 20%;margin-left: 40%;margin-top:-10%;">
+                        Upload Image
+                    </button>
+                {{/compare}}
+                <div style="margin-top:15px;font-size: 20px">{{post.description}}</div>
+                {{# if post.filename}}
+                    <a href="/uploads/{{post.filename}}" target="_blank"><img src="/uploads/{{post.filename}}"
+                                                                              height="100px" width="100px"
+                                                                              style="margin: 2%"></a>
+                {{/if}}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <hr>
+    <hr>
+    Tags:
+    {{#each post.tags}}
+        <span><small>#{{this.text}}</small></span>
+        <span>&nbsp;</span>
+    {{/each}}
+    <div id="hint">
+        <h3>Notes : </h3>
+        <ul>
+            <li><a>Click on comment to view comments of comment</a></li>
+            <li>
+                {{#if reg_user}}
+                    <a>Click on comment to comment on comment</a>
+                {{else}}
+                    <a>Login to comment.</a>
+                {{/if}}
+            </li>
+        </ul>
+    </div>
+    <div id="commentsList">
+        {{#each comments}}
+            <div id="{{_id}}">
+                <div class="media" onclick="getCommentOfComment('{{_id}}',this,'{{../reg_user.username}}');">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" style="width: 7em;height: 5em;"
+                             src="/uploads/{{#if user.filename}}{{user.filename}}{{else}}unknown.png{{/if}}"
+                             alt="profile pic of user">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{user.username}}
+                            <small>{{dateFormat lastModified "MMMM Do YYYY, h:mm a"}}</small>
+                        </h4>
+                        {{text}}
+                    </div>
+                    {{#compare ../reg_user.username user.username operator="=="}}
+                        <a class="btn btn-default" onclick="deleteComment('{{_id}}')">Delete</a>
+                    {{/compare}}
+                </div>
+                <div class="clickedDiv" id='selected{{_id}}'></div>
+            </div>
+        {{/each}}
+
+
+    </div>
+    {{#if reg_user}}
+        <div style="margin-top: 10%;">
+            <h4>Leave a Comment:</h4>
+            <input type="hidden" value={{post._id}} name='getPost' id="getPost"/>
+            <div class="form-group">
+                        <textarea class="textarea" name="comment" id="comment"
+                                  style="margin: 0px 0px 10px; height: 95px; width: 763px;"></textarea>
+            </div>
+            <input type="button" class="login loginmodal-submit" value="Comment" style="width: 20%;"
+                   onclick="addComment('{{_id}}',this,'{{../reg_user.username}}')"/>
+        </div>
+    {{/if}}
+</div>
+<div class="col-md-4">
+    <div class="well">
+        <h4>Topic Search:</h4>
+        <div class="input-group">
+                    <span class="expandonClick1">
+                        <input type="text" name="search" placeholder="Search.." id="searchBox">
+                        {{#if reg_user}}
+                            <a href="#" data-toggle="modal" data-target="#thread-modal" style="color:blue">Create new Thread</a>
+                        {{/if}}
+                    </span>
+        </div>
+    </div>
+    <!-- Side Widget Well -->
+    <h4>Stats:</h4>
+    <div class="well">
+        {{#if reg_user}}
+            <img src="/images/like.png" style="width: 2em;"
+                 onclick="increaseUpvotes('{{post._id}}'); "/>
+            <span style="color:blue;" id="upvotes">
+                       Upvotes: {{post.upvotes.length}}</span>
+
+            <img src="/images/dislike.png" style="width: 2em;"
+                 onclick="increaseDownvotes('{{post._id}}');"/>
+            <span style="color:blue;" id="downvotes">Downvotes: {{post.downvotes.length}}</span>
+        {{/if}}
+        <img src="/images/preview.jpg" style="width: 2em;"/>
+        <span style="color:blue;" id="preview">
+            {{post.preview}}</span>
+
+    </div>
+</div>

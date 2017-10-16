@@ -1,0 +1,12 @@
+<div class="loginmodal-container register-container">
+    <h1>Login to Your Account</h1><br>
+    <form method="post" action="/users/authenticate">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+    </form>
+
+    <div class="login-help">
+        <a href="/users/register">Register</a> - <a href="#">Forgot Password</a>
+    </div>
+</div>

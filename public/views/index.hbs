@@ -1,0 +1,70 @@
+<span class="expandonClick">
+    <input type="text" name="search" placeholder="Search.." id="searchBox">
+    {{#if reg_user}}
+        <button type="button" data-toggle="modal" data-target="#thread-modal" class="login loginmodal-submit"
+                style="width: 20%">
+            Create new Thread
+        </button>
+    {{/if}}
+</span>
+
+<table class="paginated table forum table-striped" id="middleTable">
+    <thead>
+    <tr>
+        <th class="cell-stat"></th>
+        <th style="word-wrap: break-word; width: 40em">
+            <h3>Threads</h3>
+        </th>
+        <th class="cell-stat text-center hidden-xs hidden-sm" style="word-wrap: break-word; width: 20em">Tags</th>
+        <th class="cell-stat text-center hidden-xs hidden-sm" style="word-wrap: break-word; width: 12em">Posts</th>
+        <th class="cell-stat-2x hidden-xs hidden-sm" style="word-wrap: break-word; width: 14em">Last Post</th>
+    </tr>
+    </thead>
+    <tbody id="projectLocation" class="list">
+    {{#each posts}}
+        <tr>
+            <td class="text-center"><i class="fa fa-question fa-2x text-primary"></i></td>
+            <td>
+                <h4><a href="/posts/getPost/{{_id}}">{{title}}</a><br>
+                    <small>
+                    Upvotes :
+                    {{#if upvotes}}
+                        {{upvotes.length}}
+                    {{else}}
+                        0
+                    {{/if}}
+                    Downvotes :
+                    {{#if downvotes}}
+                        {{downvotes.length}}
+                    {{else}}
+                        0
+                    {{/if}}
+                    ,Views : {{preview}}
+                    </small>
+                </h4>
+            </td>
+            <td class="text-center hidden-xs hidden-sm">
+                <div class="tag">
+                    <span class="more_text" style="display: none;">
+                        {{#each tags}}
+                            <span style="background-color: #cce4ff">#{{this.text}}</span>
+                            <span>&nbsp;</span>
+                        {{/each}}
+                    </span><br>
+                    <a href="#" class="read_more"><img class="more-icon" src="/images/down.png" height="25px"
+                                                       width="30px">
+                    </a>
+                </div>
+            </td>
+            {{#if comments}}
+                <td class="text-center hidden-xs hidden-sm">{{comments.length}}</td>
+            {{else}}
+                <td class="text-center hidden-xs hidden-sm">Be the first one to comment!</td>
+            {{/if}}
+            <td class="hidden-xs hidden-sm">{{dateFormat lastModified "MMMM Do YYYY, h:mm a"}}</a><br>
+                <small><i class="fa fa-clock-o"></i></small>
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

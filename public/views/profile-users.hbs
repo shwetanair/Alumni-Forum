@@ -1,0 +1,93 @@
+<script type="text/javascript">
+
+    function removeUser(userid) {
+        $.ajax({
+            url: "./delete",
+            type: 'POST',
+            data: {
+                user_id: userid
+            },
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (data) {
+                if (data) {
+                    $('#' + userid).css("display", "none");
+                } else
+                    $('#message').addClass("alert-danger").html("Try again");
+
+            },
+            error: function (xhr, text, err) {
+                console.log('error: ', err);
+                console.log('text: ', text);
+                console.log('xhr: ', xhr);
+                console.log("there is a problem whit your request, please check ajax request");
+            }
+        });
+    }
+
+    function makeAdmin(userid) {
+        $.ajax({
+            url: "./make-admin",
+            type: 'POST',
+            data: {
+                user_id: userid
+            },
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (data) {
+                if (data) location.reload();
+                else
+                    $('#message').addClass("alert-danger").html("Try again");
+            },
+            error: function (xhr, text, err) {
+                console.log('error: ', err);
+                console.log('text: ', text);
+                console.log('xhr: ', xhr);
+                console.log("there is a problem whit your request, please check ajax request");
+            }
+        });
+    }
+    function undoAdmin(userid) {
+        $.ajax({
+            url: "./undo-admin",
+            type: 'POST',
+            data: {
+                user_id: userid
+            },
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (data) {
+                if (data) location.reload();
+                else
+                    $('#message').addClass("alert-danger").html("Try again");
+            },
+            error: function (xhr, text, err) {
+                console.log('error: ', err);
+                console.log('text: ', text);
+                console.log('xhr: ', xhr);
+                console.log("there is a problem whit your request, please check ajax request");
+            }
+        });
+    }
+
+
+</script>
+
+
+<div class="container">
+    {{# if success_msg}}
+        <div class="alert-success">{{success_msg}}</div>
+    {{/if}}
+    <ul class="list-group">
+        {{#each userlist}}
+            <div id="message"></div>
+            <li class="list-group-item" id="{{_id}}"><a href="/profile/{{username}}">{{username}}</a>
+                {{#if ../user.isAdmin}}
+                    <a class="btn btn-default" onclick="removeUser('{{_id}}')">Delete</a>
+                    {{# if isAdmin}}
+                        <a class="btn btn-default" onclick="undoAdmin('{{_id}}')">Undo Admin</a>
+                    {{else}}
+                        <a class="btn btn-default" onclick="makeAdmin('{{_id}}')">Make Admin</a>
+                    {{/if}}
+                {{/if}}
+            </li>
+        {{/each}}
+    </ul>
+</div>

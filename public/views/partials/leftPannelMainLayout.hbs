@@ -1,0 +1,60 @@
+<div class="col-sm-2 sidenav_left show_only_main">
+    <div class="positionFixed">
+        <div>
+            <span class="makeBold">Top Feed</span>
+            <ul class="nav">
+                {{#each top_tags}}
+                <li>
+                    <a class="page-scroll" onclick="getPostsByTags('{{text}}',this)"><span>{{text}}</span></a>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div style="margin-top:2em;">
+            <span class="makeBold">Suggestions</span>
+            <ul class="nav">
+                <li>
+                    <a class="page-scroll" onclick="getPostsByTags()"><span class="selectedFeed">Latest</span></a>
+                </li>
+                {{#if reg_user}}
+                    {{#if reg_user.company}}
+                    <li>
+                        <a class="page-scroll" onclick="getPostsByTags('{{reg_user.company}}',this)">{{reg_user.company}}</a>
+                    </li>
+                    {{/if}}
+                    {{#if reg_user.university}}
+                        <li>
+                            <a class="page-scroll" onclick="getPostsByTags('{{reg_user.university}}',this)">{{reg_user.university}}</a>
+                        </li>
+                    {{/if}}
+                    {{#if reg_user.workStatus}}
+                        <li>
+                            <a class="page-scroll" onclick="getPostsByTags('{{reg_user.workStatus}}',this)">{{reg_user.workStatus}}</a>
+                        </li>
+                    {{/if}}
+                {{/if}}
+            </ul>
+        </div>
+
+        <div style="margin-top:2em;">
+            <a class="page-scroll" onclick="getPostsByTags('',this)"><span class="makeBold">New Questions</span></a>
+        </div>
+
+        <div style="margin-top:2em;">
+            <a class="page-scroll" onclick="getPostsWithoutComments(this)"><span class="makeBold">Unanswered Questions</span></a>
+        </div>
+
+        <div style="margin-top:2em;">
+            <a class="page-scroll" onclick="getPostsWithMostComments(this)"><span class="makeBold">Most answered Questions</span></a>
+        </div>
+
+        {{#if reg_user}}
+            <div style="margin-top:2em;">
+                <a class="page-scroll" href="#"><span class="makeBold">Favourites</span></a>
+            </div>
+            <div style="margin-top:2em;">
+                <a class="page-scroll" href="#"><span class="makeBold">My Questions</span></a>
+            </div>
+        {{/if}}
+    </div>
+</div>

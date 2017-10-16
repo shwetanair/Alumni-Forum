@@ -1,0 +1,28 @@
+<div class="modal fade" id="upload-image" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Image</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" action="/posts/upload">
+                    <div class="form-group">
+                        Profile Photo:
+                        <br>
+                        <input type="file" name="post_img" class="form-control" required>
+                        <br>
+                        <input type="submit" value="Upload" class="login loginmodal-submit" style="width: 100%">
+                        <br>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

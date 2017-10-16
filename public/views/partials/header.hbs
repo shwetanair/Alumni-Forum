@@ -1,0 +1,17 @@
+<div class="" style="margin-top: -55px">
+    <a href="../../">
+    <img src="/images/site-logo.png" style="margin-top: -1.5%;margin-bottom: 6%"></a>
+    <ol class="breadcrumb pull-right where-am-i">
+        <li><a href="/">Forum</a></li>
+        {{#if reg_user}}
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+        {{else}}
+            <li></li>
+            <a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+            <li></li>
+            <li><a href="/users/register">Register</a></li>
+        {{/if}}
+    </ol>
+    <div class="clearfix"></div>
+</div>

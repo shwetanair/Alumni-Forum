@@ -1,0 +1,86 @@
+{{#if err}}
+    {{#each err}}
+        <div class="alert alert-danger register-container" style="text-align: center;margin: 0 auto">{{err_msg}}</div>
+    {{/each}}
+{{/if}}
+
+{{#if message}}
+    <div class="alert alert-danger register-container" style="text-align: center;margin: 0 auto">{{message}}</div>
+{{/if}}
+
+
+<div class="loginmodal-container width-container">
+    <form method="post" action="/users/addUser" id="register_form">
+        <label>First Name</label>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="First Name" name="firstname">
+        </div>
+
+        <label>Last Name</label>
+        <input type="text" class="form-control" placeholder="Last Name" name="lastname">
+
+
+        <label>Username</label>
+        <input type="text" class="form-control" placeholder="Username" name="username">
+
+
+        <label>Email</label>
+        <input type="email" class="form-control" placeholder="Email" name="email">
+        <br>
+
+        <label>Your current work status</label><br>
+        <label class="radio-inline">
+            <input type="radio" name="optradio" value="Working full-time">Working full-time
+        </label><br>
+        <label class="radio-inline">
+            <input type="radio" name="optradio" value="Working part-time">Working part-time
+        </label><br>
+        <label class="radio-inline">
+            <input type="radio" name="optradio" value="Between jobs / In transition">Between jobs / In transition
+        </label><br>
+        <label class="radio-inline">
+            <input type="radio" name="optradio" value="Full-time student">Full-time student
+        </label><br>
+        <label class="radio-inline">
+            <input type="radio" name="optradio" value="Retired">Retired
+        </label><br>
+        <br>
+
+        <label>Select Company Name(Type if not listed)</label>
+        <select class="form-control" id="company-list" onclick="companyName()" name="companyPicker">
+            <option></option>
+            <!--company list-->
+        </select>
+        Company:<input type="text" placeholder="Company Name" name="company">
+
+
+        <label>Select School Name(Type if not listed)</label>
+        <select class="form-control" id="university-list" onclick="univName()" name="universityPicker">
+            <option></option>
+            <!--school-list-->
+        </select>
+        School:<input type="text" placeholder="University Name" name="university">
+
+
+        <label>Password</label>
+        <input type="password" class="form-control" placeholder="Password" name="password" id="pass">
+
+
+        <label>Confirm Password</label>
+        <input type="password" class="form-control" placeholder="Password" name="password2">
+
+        <button name="register" class="login loginmodal-submit" id="rbtn" style="width: 100%;">Register</button>
+
+
+    </form>
+</div>
+
+<div id="pswd_info">
+    <h4>Password must meet the following requirements:</h4>
+    <ul>
+        <li id="letter" class="invalid">At least <strong>one letter</strong></li>
+        <li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
+        <li id="number" class="invalid">At least <strong>one number</strong></li>
+        <li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
+    </ul>
+</div>
